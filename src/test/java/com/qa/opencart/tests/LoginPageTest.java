@@ -25,8 +25,8 @@ public class LoginPageTest extends BaseTest {
 	
 	@Severity(SeverityLevel.MINOR)
 	@Description("Login page Title verification")
-	@Owner("Abhijeet Singh")
-	@Issue("AN-1234")
+	@Owner("Abhijeet Singh New")
+	@Issue("AN-1235")
 	
 	@Test
 	public void loginPageTestTitle()
