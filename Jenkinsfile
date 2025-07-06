@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     tools {
-        maven 'maven'  // Must match the Maven installation name in Jenkins global tools config
+        maven 'maven'  // Must match the Maven installation name in Jenkins Global Tool Configuration
     }
 
-    
+    stages {
 
         stage('Deploy to QA') {
             steps {
@@ -30,7 +30,7 @@ pipeline {
                         jdk: '',
                         properties: [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'allure-results']] // No leading slash
+                        results: [[path: 'allure-results']]
                     ])
                 }
             }
