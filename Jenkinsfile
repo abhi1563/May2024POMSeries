@@ -1,20 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.7-openjdk-17'
-            label '' // optional - specify a node label if needed
-        }
-    }
+    agent any
 
     tools {
-        maven 'maven'  // This should match the Maven installation name in Jenkins global tools config
+        maven 'maven'  // Must match the Maven installation name in Jenkins global tools config
     }
 
     stages {
         stage('Build') {
             steps {
                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-                sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+                bat 'mvn -Dmaven.test.failure.ignore=true clean package'
             }
             post {
                 success {
@@ -34,7 +29,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/abhi1563/May2024POMSeries.git'
-                    sh 'mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml'
+                    bat 'mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml'
                 }
             }
         }
@@ -47,7 +42,7 @@ pipeline {
                         jdk: '',
                         properties: [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'allure-results']] // ✅ No leading slash
+                        results: [[path: 'allure-results']] // No leading slash
                     ])
                 }
             }
